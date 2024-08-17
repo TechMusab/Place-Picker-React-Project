@@ -40,7 +40,7 @@ function App() {
       return [place, ...prevPickedPlaces];
     });
   }
-
+  
   function handleRemovePlace() {
     setPickedPlaces((prevPickedPlaces) =>
       prevPickedPlaces.filter((place) => place.id !== selectedPlace.current)
