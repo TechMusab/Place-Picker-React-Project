@@ -7,7 +7,7 @@ import { sortPlacesByDistance } from "./loc.js";
 import logoImg from "./assets/logo.png";
 
 function App() {
-  const modal = useRef();
+  const modalref = useRef();
   const selectedPlace = useRef();
   const [pickedPlaces, setPickedPlaces] = useState([]);
   const [availableplaces, setavailableplaces] = useState([]);
@@ -23,12 +23,12 @@ function App() {
   }, []);
 
   function handleStartRemovePlace(id) {
-    modal.current.open();
+    modalref.current.open();
     selectedPlace.current = id;
   }
 
   function handleStopRemovePlace() {
-    modal.current.close();
+    modalref.current.close();
   }
 
   function handleSelectPlace(id) {
@@ -45,12 +45,12 @@ function App() {
     setPickedPlaces((prevPickedPlaces) =>
       prevPickedPlaces.filter((place) => place.id !== selectedPlace.current)
     );
-    modal.current.close();
+    modalref.current.close();
   }
 
   return (
     <>
-      <Modal ref={modal}>
+      <Modal ref={modalref}>
         <DeleteConfirmation
           onCancel={handleStopRemovePlace}
           onConfirm={handleRemovePlace}
