@@ -1,4 +1,4 @@
-import { useRef, useState,useEffect } from "react";
+import { useRef, useState, useEffect } from "react";
 import Places from "./components/Places.jsx";
 import { AVAILABLE_PLACES } from "./data.js";
 import Modal from "./components/Modal.jsx";
@@ -39,13 +39,24 @@ function App() {
       const place = AVAILABLE_PLACES.find((place) => place.id === id);
       return [place, ...prevPickedPlaces];
     });
+    const storedIds = JSON.parse(localStorage.getItem("sselectedPlace")) || [];
+    if (storedIds.indexOf(id) === -1) {
+      localStorage.setItem("selectedPlace", JSON.stringify([id, ...storedIds]));
+    }
   }
-  
+
   function handleRemovePlace() {
     setPickedPlaces((prevPickedPlaces) =>
       prevPickedPlaces.filter((place) => place.id !== selectedPlace.current)
     );
     modalref.current.close();
+
+    const storedIds = JSON.parse(localStorage.getItem("selectedPlace"));
+    const updatedIds = storedIds.filter(
+      (id) => id !== selectedPlace.current
+    );
+    localStorage.setItem("selectedPlace", JSON.stringify(updatedIds));
+
   }
 
   return (
