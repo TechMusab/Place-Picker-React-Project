@@ -10,12 +10,10 @@ const storedplaces = storedids.map((id) =>
   AVAILABLE_PLACES.find((place) => place.id === id)
 );
 function App() {
-  const modalref = useRef();
   const selectedPlace = useRef();
+  const [open, setopen] = useState(false);
   const [pickedPlaces, setPickedPlaces] = useState(storedplaces);
   const [availableplaces, setavailableplaces] = useState([]);
-
-    
 
   useEffect(() => {
     navigator.geolocation.getCurrentPosition((position) => {
@@ -29,11 +27,12 @@ function App() {
   }, []);
 
   function handleStartRemovePlace(id) {
-    modalref.current.open();
+    setopen(true);
     selectedPlace.current = id;
   }
 
   function handleStopRemovePlace() {
+    setopen(false);
     modalref.current.close();
   }
 
@@ -55,7 +54,7 @@ function App() {
     setPickedPlaces((prevPickedPlaces) =>
       prevPickedPlaces.filter((place) => place.id !== selectedPlace.current)
     );
-    modalref.current.close();
+    setopen(false);
 
     const storedIds = JSON.parse(localStorage.getItem("selectedPlace"));
     const updatedIds = storedIds.filter((id) => id !== selectedPlace.current);
@@ -64,7 +63,7 @@ function App() {
 
   return (
     <>
-      <Modal ref={modalref}>
+      <Modal open={open}>
         <DeleteConfirmation
           onCancel={handleStopRemovePlace}
           onConfirm={handleRemovePlace}
