@@ -64,12 +64,12 @@ function App() {
   return (
     <>
       <Modal open={open}>
-        {open && (
+         
           <DeleteConfirmation
             onCancel={handleStopRemovePlace}
             onConfirm={handleRemovePlace}
           />
-        )}
+        
       </Modal>
 
       <header>
