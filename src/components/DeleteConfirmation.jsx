@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 
 export default function DeleteConfirmation({ onConfirm, onCancel }) {
-  const [timer, setTimer] = useState(3000);
+  const [timer, setTimer] = useState(4000);
   useEffect(() => {
     const timer = setInterval(() => {
-      setTimer((prev) => prev - 10);
+      setTimer((prev) => prev - 15);
     }, 10);
     return () => {
       clearInterval(timer);
@@ -14,7 +14,7 @@ export default function DeleteConfirmation({ onConfirm, onCancel }) {
   useEffect(() => {
     const timer = setTimeout(() => {
       onConfirm();
-    }, 3000);
+    }, 4000);
 
     return () => {
       clearTimeout(timer);
